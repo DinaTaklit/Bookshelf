@@ -30,6 +30,7 @@ def paginate_books(request, selection):
     
     books = [book.format() for book in selection]
     current_books = books[start:end]
+    return current_books
 
 # def create_app(test_config=None):
 #     # create and configure the app
@@ -57,20 +58,15 @@ def after_request(response):
 @app.route('/books')
 def retrive_books(): 
     selection = Book.query.order_by(Book.id).all()
-    print('\nselection => {}\n'.format(selection))
-    current_book = paginate_books(request,selection)
-              
-    if current_books is None or len(current_book)==0: 
+    current_books = paginate_books(request,selection)        
+    if current_books is None or len(current_books)==0: 
         abort(404)
     
     return jsonify({
         'success': True,
-        'books':current_book,
+        'books':current_books,
         'total_books':len(Book.query.all())
-    })
-    
-        
-    
+    })  
 
 # @TODO: Write a route that will update a single book's rating. 
 #         It should only be able to update the rating, not the entire representation
