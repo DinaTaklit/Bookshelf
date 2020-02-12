@@ -35,7 +35,10 @@ With Postgres running, restore a database using the trivia.psql file provided. F
 ```bash
 psql trivia < trivia.psql
 ```
-
+EDIT: the command above does not work. So create your db first called bookshelf. Then run this command to run the script books.psql:
+```
+psql -d bookshelf -U Database_Owner -a -f books.psql
+```
 ## Running the server
 
 From within the `./src` directory first ensure you are working using your created virtual environment.
@@ -45,6 +48,8 @@ To run the server, execute:
 ```bash
 flask run --reload
 ```
+
+
 
 The `--reload` flag will detect file changes and restart the server automatically.
 
