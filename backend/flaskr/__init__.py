@@ -96,8 +96,29 @@ def update_book(book_id):
 #        Response body keys: 'success', 'deleted'(id of deleted book), 'books' and 'total_books'
 #        Response body keys: 'success', 'books' and 'total_books'
 
-# TEST: When completed, you will be able to delete a single book by clicking on the trashcan.
+@app.route('/books/<int:book_id>', methods=['DELETE'])
+def delete_book(book_id):
+    try: 
+        book = Book.query.filter(Book.id == book_id).one_or_none()
+        if book is None:
+            abort(404)
+        
+        book.delete()
+        selection = Book.query.order_by(Book.id).all()
+        current_books = paginate_books(request, selection)
+        
+        return jsonify({
+            'success': True,
+            'deleted': book_id,
+            'books': current_books,
+            'total_books': len(Book.query.all())
+        })
+    except Exception as error:
+        print("\nerror => {}\n".format(error))
+        abort(422)
+    
 
+# TEST: When completed, you will be able to delete a single book by clicking on the trashcan.
 
 # @TODO: Write a route that create a new book. 
 #        Response body keys: 'success', 'created'(id of created book), 'books' and 'total_books'
