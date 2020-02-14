@@ -41,3 +41,26 @@ At line:1 char:48
     + CategoryInfo          : InvalidArgument: (:) [Invoke-WebRequest], ParameterBindingException
     + FullyQualifiedErrorId : CannotConvertArgumentNoMessage,Microsoft.PowerShell.Commands.InvokeWebRequestCommand 
 ```
+
+## Curl commands to test error handler
+
+### Error 404 not found
+```
+curl.exe http://127.0.0.1:5000/books?page=13
+```
+
+### Error 405 method not allowed
+```
+curl.exe -X POST -H "Content-Type:application/json" -d '{\"title\":\"CIRCE\", \"author\":\"Madeline Miller\", \"rating\":\"5\"}' http://127.0.0.1:5000/books/500
+```
+
+### Error 422 unprocessable
+```
+curl.exe http://127.0.0.1:5000/books/100 -X DELETE 
+```
+
+### Error 400 bad request 
+
+```
+curl.exe http://127.0.0.1:5000/books/8 -X PATCH -H "Content-Type: application/json" -d '{\"ratig\":\"2\"}' 
+```
