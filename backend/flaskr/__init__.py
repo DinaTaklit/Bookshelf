@@ -83,14 +83,13 @@ def update_book(book_id):
             abort(404)
         if 'rating' in body:
             book.rating = int(body.get('rating'))
-        
         book.update()
-        
         return jsonify({
             'sucess': True,
             'id':book.id     
         })    
-    except: 
+    except Exception as error:
+        print('\n errror => {} \n'.format(error)) 
         abort(400)
         
 # @TODO: Write a route that will delete a single book. 
@@ -106,5 +105,5 @@ def update_book(book_id):
 #       Your new book should show up immediately after you submit it at the end of the page. 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
     
