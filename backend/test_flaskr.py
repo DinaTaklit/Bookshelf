@@ -38,10 +38,18 @@ class BookTestCase(unittest.TestCase):
     #Define your tests. All should begin with "test_" and include a doc string about the purpose of the test. In defining the tests, you will need to:
     #1. Get the response by having the client make a request
     #2. Use self.assertEqual to check the status code and all other relevant operations.
-    def test_given_behavior(self):
-        """Test ____________ """
-        res = self.client().get('/')
+    # def test_given_behavior(self):
+    #     """Test ____________ """
+    #     res = self.client().get('/')
+    #     self.assertEqual(res.status_code, 200)
+    
+    def test_get_paginated_books(self):
+        res = self.client().get('/books')
+        data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data['success'], True)
+        self.assertTrue(data['total_books'])
+        self.assertTrue(len(data['books']))
     
     # @TODO: Write at least two tests for each endpoint - one each for success and error behavior.
     #        You can feel free to write additional tests for nuanced functionality,
