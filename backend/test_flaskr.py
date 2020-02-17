@@ -134,7 +134,7 @@ class BookTestCase(unittest.TestCase):
     #Test-Driven Development (or TDD) is a software development paradigm used very commonly in production. It is based on a short, rapid development cycle in which tests are written before the executable code and constantly iterated on. 
     # This part use this logic 
     
-    # Test get books search with result
+    # Test get books search with results
     def test_get_book_search_with_results(self):
         res = self.client().post('/books', json={'search':'Novel'})
         data = json.loads(res.data)
@@ -144,7 +144,7 @@ class BookTestCase(unittest.TestCase):
         self.assertTrue(data['total_books'])
         self.assertEqual(len(data['books']), 4)
         
-    # Test get books search without result 
+    # Test get books search without results 
     def test_get_book_search_without_results(self):
         res = self.client().post('/books', json={'search':'applejacks'})
         data = json.loads(res.data)
@@ -152,7 +152,7 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['total_books'], 0)
-        self.assertEqual(len(data['books'], 0))
+        self.assertEqual(len(data['books']), 0)
     
     
 #Run the test suite, by running python test_file_name.py from the command line.
