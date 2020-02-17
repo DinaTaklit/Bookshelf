@@ -85,7 +85,7 @@ def create_app(test_config=None):
                 book.rating = int(body.get('rating'))
             book.update()
             return jsonify({
-                'sucess': True,
+                'success': True,
                 'id':book.id     
             })    
         except Exception as error:
