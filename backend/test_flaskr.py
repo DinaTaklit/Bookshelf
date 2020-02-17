@@ -43,6 +43,7 @@ class BookTestCase(unittest.TestCase):
     #     res = self.client().get('/')
     #     self.assertEqual(res.status_code, 200)
     
+    # test retrive_books
     def test_get_paginated_books(self):
         res = self.client().get('/books')
         data = json.loads(res.data)
@@ -50,6 +51,16 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(res.data['success'], True)
         self.assertTrue(data['total_books'])
         self.assertTrue(len(data['books']))
+    
+    # test retrive books requesting beyon valid page
+    def test_404_sent_requesting_beyond_valid_page(self):
+        res = self.client().get('/books?page=1000')
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')        
+    
     
     # @TODO: Write at least two tests for each endpoint - one each for success and error behavior.
     #        You can feel free to write additional tests for nuanced functionality,
