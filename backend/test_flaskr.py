@@ -111,7 +111,25 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'],'unprocessable')
+    
+    # test create create_book mthod
+    def test_create_new_book(self):
+        res =  self.client().post('/books', json=self.new_book)
+        data = json.loads(res.data)
         
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['created'])
+        self.assertTrue(len(data['books']))
+    
+    # test not allowed action in creation of new book 
+    def test_405_if_book_creation_not_allowed(self):
+        res = self.client().post('/books/45', json=self.new_book)
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 405)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'method not allowed')
     
 #Run the test suite, by running python test_file_name.py from the command line.
 if __name__ == "__main__":
