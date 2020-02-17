@@ -72,15 +72,6 @@ All tests are kept in that file and should be maintained as updates are made to 
 - Arguments including data types
 - Response object including status codes and data types 
 
-### Test 
-- For the test to be able to run it you should create a data base called `bookshelf_test` for ex.
-    ``` 
-    CREATE DATABASE bookshlef_test OWNER name_of_owner
-    ``` 
-- Then you should run the script {`books.psql` to populate the database of the test: 
-    ```
-    psql -d bookshelf_test -U db_onwner -a -f books.psql
-    ```
 
 ## Deployment N/A
 

@@ -4,7 +4,7 @@
 
 ### Installing Dependencies
 
-#### Python 3.7
+#### Python >3.7
 
 Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
@@ -32,13 +32,15 @@ This will install all of the required packages we selected within the `requireme
 
 ## Database Setup
 With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
-```bash
-psql trivia < trivia.psql
-```
-EDIT: the command above does not work. So create your db first called bookshelf. Then run this command to run the script books.psql:
+    ```bash
+    psql bookshelf < bookshlef.psql
+    ```
+>EDIT: if the command above does not work. So create your db first called bookshelf. Then run this command to run the script books.psql:
+
 ```
 psql -d bookshelf -U Database_Owner -a -f books.psql
 ```
+
 ## Running the server
 
 From within the `./src` directory first ensure you are working using your created virtual environment.
@@ -76,26 +78,20 @@ GET '/api/v1.0/categories'
 GET ...
 POST ...
 DELETE ...
-
-GET '/api/v1.0/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
-
 ```
 
 
 ## Testing
-To run the tests, run
-```
-dropdb trivia_test
-createdb trivia_test
-psql trivia_test < trivia.psql
-python test_flaskr.py
-```
+
+- First create the database of the test: 
+    ```
+    CREATE DATABASE bookshelf_test OWNER name_of_owner
+    ```
+- Populate the bookshelf database using books.psql script 
+    ```  
+    psql -d bookshelf_test -U db_onwner -a -f books.psql
+    ```
+- To run the test type: 
+    ```
+    python test_flaskr.py
+    ```
