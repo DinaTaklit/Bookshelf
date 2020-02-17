@@ -51,22 +51,22 @@ class BookTestCase(unittest.TestCase):
     # Optional: Update the book information in setUp to make the test database your own! 
     
     # test retrive_books
-    # def test_get_paginated_books(self):
-    #     res = self.client().get('/books')
-    #     data = json.loads(res.data)
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(res.data['success'], True)
-    #     self.assertTrue(data['total_books'])
-    #     self.assertTrue(len(data['books']))
+    def test_get_paginated_books(self):
+        res = self.client().get('/books')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['total_books'])
+        self.assertTrue(len(data['books']))
     
-    # test retrive books requesting beyon valid page
-    # def test_404_sent_requesting_beyond_valid_page(self):
-    #     res = self.client().get('/books?page=1000')
-    #     data = json.loads(res.data)
+    #test retrive books requesting beyon valid page
+    def test_404_sent_requesting_beyond_valid_page(self):
+        res = self.client().get('/books?page=1000')
+        data = json.loads(res.data)
         
-    #     self.assertEqual(res.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'resource not found')  
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')  
                   
     # @TODO: Write tests for search - at minimum two
     #        that check a response when there are results and when there are none
@@ -78,7 +78,16 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(book.format()['rating'], 1)
-
+    
+    def test_400_for_failed_update(self):
+        res = self.client().patch('/books/5')
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'bad request')
+        
+        
         
 #Run the test suite, by running python test_file_name.py from the command line.
 if __name__ == "__main__":
